@@ -52,12 +52,16 @@ class ViewController: UIViewController {
 
     func setupCollectionView() {
         
+        if isIphone8() {
+            let width = (collectionView.frame.size.width / 10)
+            layout.itemSize = CGSize(width: width, height: width)
+        } else {
+            let width = (collectionView.frame.size.width / 9)
+            layout.itemSize = CGSize(width: width, height: width)
+        }
         
-        let width = (collectionView.frame.size.width / 9)
-        layout.itemSize = CGSize(width: width, height: width)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        
         
         collectionView.register(UINib(nibName: "SingleTurnCVC", bundle: nil), forCellWithReuseIdentifier: "SingleTurnCVC")
         collectionView.delegate = self
@@ -68,6 +72,10 @@ class ViewController: UIViewController {
         collectionView.layer.borderWidth = 0.5
         collectionView.layer.borderColor = UIColor.darkGray.cgColor
         
+    }
+    
+    func isIphone8() -> Bool {
+        return view.frame.width < 400
     }
 }
 
